@@ -6,6 +6,17 @@ Aplicación React para explorar eventos, seleccionar boletos, realizar una compr
 **Actividad:** Entrega Parcial del Proyecto 3  
 **Integrantes:** Pan Lijian Wong y Ariana
 
+## Responsabilidades del equipo
+
+El trabajo se distribuye entre dos módulos principales del flujo de cuenta: creación de cuenta y acceso a la aplicación.
+
+| Integrante | Responsabilidad principal | Funciones de su módulo |
+| --- | --- | --- |
+| **Pan Lijian Wong** | **Crear cuenta — RegistrationForm** | Formulario controlado de registro; validación del nombre, correo, longitud y confirmación de contraseña; normalización de datos; mensajes de error y carga; prevención de envíos repetidos; comunicación del resultado a Account mediante onSuccess para establecer la sesión simulada. |
+| **Ariana** | **Iniciar sesión — LoginForm** | Formulario controlado de acceso; validación y normalización del correo; validación de la contraseña de prueba; mensajes de error y carga; prevención de envíos repetidos; comunicación del acceso a Account mediante onSuccess para establecer la sesión simulada. |
+
+En ambos módulos se aplican estado local, props, eventos, componentes reutilizables y el hook compartido de operaciones cancelables. Las operaciones pendientes se cancelan al abandonar el formulario y las contraseñas no se almacenan. El registro permite incorporar al usuario de demostración y el inicio de sesión permite acceder con una identidad simulada; son responsabilidades complementarias dentro de la gestión de usuarios.
+
 ## Instalación y ejecución
 
 Requisitos: Node.js 24 LTS y npm.
