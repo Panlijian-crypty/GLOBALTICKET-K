@@ -1,19 +1,21 @@
 # GLOBALTICKET K
 
-Aplicación académica de venta y gestión de boletos para eventos. **Programación Orientada al Usuario · UCA · Grupo K.** Actividad: Entrega Parcial del Proyecto 3, implementación React del MVP.
+Aplicación React para explorar eventos, seleccionar boletos, realizar una compra simulada y consultar boletos electrónicos con código QR.
 
-**Pareja:** Pan Lijian Wong y Ariana.
+**Asignatura:** Programación Orientada al Usuario · UCA  
+**Actividad:** Entrega Parcial del Proyecto 3  
+**Integrantes:** Pan Lijian Wong y Ariana
 
 ## Instalación y ejecución
 
-Requiere Node.js 24 LTS y npm. Desde la carpeta del proyecto:
+Requisitos: Node.js 24 LTS y npm.
 
 ```sh
 npm install
 npm run dev
 ```
 
-Abre la dirección que indique Vite. Para comprobar y compilar:
+Abrir la dirección indicada por Vite. Comandos adicionales:
 
 ```sh
 npm run lint
@@ -21,91 +23,68 @@ npm run build
 npm run preview
 ```
 
-No se incluye `node_modules`. `dist` se genera al compilar y no forma parte del código fuente entregado.
+## Funcionalidades
 
-## Funcionalidad
+- Catálogo de eventos con búsqueda, filtros, detalle y estados.
+- Selección de zonas, precios y cantidades según disponibilidad.
+- Carrito persistente y compra en cuatro pasos.
+- Pago simulado con aprobación, rechazo y reintento.
+- Boletos con QR y cancelación de órdenes.
+- Registro, recuperación de contraseña simulada, perfil y roles de demostración.
+- Panel con dashboard, eventos, inventario, precios y usuarios.
+- Reportes estáticos, tema claro/oscuro y estados de carga, error y vacío.
 
-- Catálogo con listado, búsqueda, filtros, detalle y estados del evento.
-- Tres zonas por evento con precio y disponibilidad.
-- Carrito y compra en cuatro pasos: carrito, datos, pago y confirmación.
-- Pago simulado con aprobación y rechazo recuperable.
-- Boletos con QR generado en el cliente y cancelación de compras.
-- Registro, recuperación, perfil y roles de demostración. El login se integra con el archivo de Ariana.
-- Administración con dashboard, eventos, edición de títulos, inventario, precios y usuarios.
-- Reportes estáticos con datos de ejemplo.
-- Carga, error, reintento, vacío y confirmaciones; prevención de doble envío.
+## Componentes y estructura
 
-## Integración de la pareja
+| Archivo o carpeta | Componentes y responsabilidad |
+| --- | --- |
+| `src/components/UI.jsx` | Button, Badge, Field, EmptyState, Notice, PageTitle, Stepper, QuantityPicker, QR, StatCard, Table y Tabs |
+| `src/components/Layout.jsx` | Header y Footer |
+| `src/components/EventCard.jsx` | EventCard recibe event y onOpen |
+| `src/components/auth/` | Formularios controlados de cuenta; comunican el resultado mediante onSuccess |
+| `src/pages/Cart.jsx` | Cart y OrderSummary reciben selecciones y total |
+| `src/pages/` | Catálogo, detalle, carrito, pago, cuenta, boletos y administración |
+| `src/data/` | Eventos, zonas, usuarios y reportes simulados |
+| `src/hooks/` | Persistencia y operaciones asíncronas cancelables |
+| `src/utils/` | Formato de moneda y fecha, validación de correo y espera cancelable |
 
-Esta primera subida contiene la base compartida y el registro de Pan Lijian Wong. **El archivo de login de Ariana todavía no está incluido.** El flujo de compra, registro, perfil y accesos de demostración funcionan en esta base.
+Los componentes reciben datos y callbacks mediante props. Button admite children, variant y eventos; Field agrupa label y controles; Tabs utiliza items, value y onChange; Table recibe headers y children; QR recibe value.
 
-Ariana debe revisar y agregar `src/components/auth/LoginForm.jsx` desde su cuenta. `Account.jsx` detecta ese archivo mediante `import.meta.glob` y habilita la pestaña Iniciar sesión; no necesita sustituir el código del registro. Después de integrar su contribución, ejecutar otra vez instalación, lint, build y revisar ambos formularios. El repositorio final de la pareja es el que debe entregarse.
+## Estado y persistencia
 
-El historial refleja quién sube los cambios; el reparto de autenticación es registro para Lijian e inicio de sesión para Ariana. La documentación no atribuye a una persona la autoría completa de los módulos compartidos.
+App mantiene el estado compartido y distribuye las acciones a las vistas.
 
-## Recorrido principal
-
-1. Abrir Neon Nights desde Explorar.
-2. Seleccionar VIP y dos boletos; añadirlos al carrito. Total: $120.00.
-3. Recargar y comprobar que se conserva el carrito.
-4. Continuar con `Cliente Demo` y `cliente@example.com`.
-5. Marcar la confirmación de demostración y probar `DEMO 0000`: el pago se rechaza y permite reintentar.
-6. Elegir `DEMO 4242`: el pago se aprueba, se crea una orden y se vacía el carrito.
-7. Consultar Mis boletos y los QR. Cancelar para liberar la disponibilidad.
-8. En Mi cuenta, cerrar sesión y probar Crear cuenta. Usar únicamente datos ficticios y una contraseña de al menos ocho caracteres, por ejemplo `Demo12345`.
-9. Probar los accesos Administrador y Organizador para consultar el panel.
-
-Explorar > Opciones de demostración permite simular el error de carga o reiniciar los datos locales con confirmación.
-
-## Inventario de componentes
-
-| Archivo | Componentes reutilizables | Props principales |
+| Estado | Persistencia | Contenido |
 | --- | --- | --- |
-| `src/components/UI.jsx` | Button, Badge, Field, EmptyState, Notice, PageTitle, Stepper, QuantityPicker, QR, StatCard, Table, Tabs | children, variant, type, title, label, value, onChange, step, headers y children según componente |
-| `src/components/Layout.jsx` | Header, Footer | view, go, cartCount, session, theme, setTheme |
-| `src/components/EventCard.jsx` | EventCard | event, onOpen |
-| `src/components/auth/RegistrationForm.jsx` | RegistrationForm | onSuccess |
-| `src/components/auth/RecoveryForm.jsx` | RecoveryForm | sin props obligatorias |
-| `src/components/auth/LoginForm.jsx` (contribución pendiente) | LoginForm | initialEmail, onSuccess |
-| `src/pages/Cart.jsx` | OrderSummary | items, total |
+| cart | localStorage: gt-cart | Evento, zona y cantidad |
+| orders | localStorage: gt-orders | Órdenes, usuario, total y estado |
+| session | localStorage: gt-session | Identidad y rol simulados |
+| theme | localStorage: gt-theme | Tema visual |
+| category | localStorage: gt-category | Categoría seleccionada |
+| overrides | localStorage: gt-event-titles | Títulos editados |
+| view | Hash de la URL | Vista actual |
+| Campos, búsqueda, pasos y carga | Temporal en cada vista | Interacción y validación |
 
-Las vistas están en `src/pages`, los datos en `src/data`, los hooks en `src/hooks` y las utilidades en `src/utils`. La separación completa y el flujo de callbacks se describen en [Arquitectura](docs/Arquitectura.md).
+El total y la disponibilidad se calculan a partir de los datos. Los efectos limpian temporizadores y escuchas; las operaciones pendientes se cancelan al abandonar el formulario. El bloqueo de envíos evita compras duplicadas. Las contraseñas no se guardan.
 
-## Mapa de estado y persistencia
+## Datos y prueba del flujo
 
-| Estado | Propietario | Persistencia | Uso |
-| --- | --- | --- | --- |
-| cart | App / usePersistent | gt-cart | Selecciones por evento y zona, cantidades |
-| orders | App / usePersistent | gt-orders | Órdenes, estado, usuario y total confirmado |
-| session | App / usePersistent | gt-session | Identidad y rol ficticios; no guarda contraseñas |
-| theme | App / usePersistent | gt-theme | Tema claro u oscuro |
-| category | App / usePersistent | gt-category | Filtro seleccionado |
-| overrides | App / usePersistent | gt-event-titles | Títulos editados en administración |
-| view | App | hash de la URL | Vista actual |
-| búsqueda y carga | Catalog | temporal | Filtro de texto y operación simulada |
-| campos, errores, busy | formularios | temporal | Validación y retroalimentación |
-| paso y rechazo | Checkout | temporal | Avance de compra y reintento |
+Se incluyen ocho eventos ficticios con imagen, fecha, lugar, categoría y estado; cada uno tiene tres zonas. Hay roles Cliente, Administrador y Organizador y una serie de ventas para reportes. Las órdenes se generan durante la compra.
 
-El total del carrito y la disponibilidad se calculan; no se duplican como estado. Las vistas reciben props y comunican eventos mediante callbacks. `usePersistent` valida JSON, conserva una alternativa en memoria ante errores y limpia la escucha de storage. `useDelayedAction` usa un bloqueo inmediato y AbortController para cancelar operaciones al desmontar los formularios.
+1. Abrir Neon Nights y seleccionar dos boletos VIP: total $120.00.
+2. Añadir al carrito y continuar con Cliente Demo y cliente@example.com.
+3. Probar DEMO 0000 para un rechazo y DEMO 4242 para una aprobación.
+4. Consultar Mis boletos y sus QR; cancelar la orden para liberar disponibilidad.
 
-## Datos simulados
+Para los formularios se utilizan datos ficticios y contraseñas de prueba de al menos ocho caracteres.
 
-`src/data/events.js` define ocho eventos propios: música, teatro, gastronomía, deportes, arte y comedia. Cada evento tiene fecha, lugar, imagen SVG local, estado y tres zonas. Incluye roles Cliente, Administrador y Organizador, además de una serie estática para reportes. Las órdenes se generan al recorrer el pago; Mis boletos comienza vacío en un navegador nuevo. Los datos de las capturas proceden de una compra de prueba.
+## Diseño y documentación
 
-## Diseño y decisiones
+Identidad violeta de GLOBALTICKET, Poppins en títulos e Inter en textos, CSS propio y navegación por hash. Se utilizan etiquetas, HTML semántico, foco visible, textos alternativos y mensajes de estado.
 
-Se utiliza la identidad violeta de GLOBALTICKET (#6D28D9, #4C1D95 y #EDE9FE), Poppins en títulos e Inter en textos con fuentes de respaldo, tarjetas, botones y campos coherentes. La comparación exacta con el Figma final del equipo debe realizarse durante la revisión de la pareja.
+- [Arquitectura de componentes y flujo de estado](docs/Arquitectura.md).
+- [Capturas de las pantallas a 375, 768 y 1440 px](docs/Capturas.md).
 
-CSS propio y navegación por hash. React Router no es obligatorio en esta actividad. No se incluyen PWA, API falsa ni Context, que el PDF sitúa en una entrega posterior. La aplicación usa etiquetas, semántica, foco visible, textos alternativos y mensajes de estado.
+## Alcance y limitaciones
 
-## Capturas
-
-Las pantallas principales se documentan a 375, 768 y 1440 píxeles en [docs/Capturas.md](docs/Capturas.md). Las capturas corresponden a esta base; la evidencia del login debe agregarse cuando Ariana integre su archivo.
-
-## Limitaciones
-
-Sesión, roles y pagos simulados; sin backend, base de datos, cobros ni envío real de correos. El login no verifica credenciales reales. Los QR son referencias DEMO sin validez comercial. localStorage pertenece a un navegador y no asegura inventario concurrente entre equipos. Los reportes son estáticos; el dashboard usa las compras locales. Administración permite editar títulos y consultar el resto de datos, no un CRUD completo.
-
-## Entregables
-
-Código fuente, README, documento breve de arquitectura y capturas en este repositorio. La pareja debe realizar una presentación de 5 a 8 minutos con el flujo principal. No se incluye un guion ni un informe adicional. El envío de la actividad se hace con el enlace del repositorio público, una vez integrada la contribución de Ariana.
+Proyecto académico con datos, sesiones, roles, pagos y recuperación simulados. No utiliza backend, base de datos, cobros ni envío real de correos. Los QR no tienen validez comercial. La persistencia es local a cada navegador; no hay inventario compartido entre equipos. Los reportes son estáticos y la administración permite editar títulos y consultar los demás datos.
