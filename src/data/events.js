@@ -1,0 +1,155 @@
+export const events = [
+  {
+    id: "neon",
+    title: "Neon Nights",
+    category: "Música",
+    date: "2026-12-12T19:00",
+    venue: "Parque Bicentenario",
+    city: "San Salvador",
+    status: "Disponible",
+    color: "#7045ef",
+    description:
+      "Una noche de música electrónica, luces y energía bajo las estrellas. Tres escenarios y una experiencia para compartir.",
+    base: 25,
+  },
+  {
+    id: "jazz",
+    title: "Jazz bajo las estrellas",
+    category: "Música",
+    date: "2026-12-18T20:00",
+    venue: "Teatro Presidente",
+    city: "San Salvador",
+    status: "Disponible",
+    color: "#114f56",
+    description:
+      "Una selección de jazz contemporáneo en un ambiente íntimo. Un encuentro con la improvisación y el talento local.",
+    base: 20,
+  },
+  {
+    id: "teatro",
+    title: "Entre líneas",
+    category: "Teatro",
+    date: "2026-12-19T18:30",
+    venue: "Teatro Nacional",
+    city: "San Salvador",
+    status: "Últimos boletos",
+    color: "#b32b4a",
+    description:
+      "Una historia sobre los encuentros que cambian nuestra vida. Teatro contemporáneo en el corazón de la ciudad.",
+    base: 15,
+  },
+  {
+    id: "sabores",
+    title: "Sabores de nuestra tierra",
+    category: "Gastronomía",
+    date: "2026-12-20T11:00",
+    venue: "Plaza de la Cultura",
+    city: "Santa Tecla",
+    status: "Disponible",
+    color: "#ab4a14",
+    description:
+      "Descubre recetas, propuestas de cocina y sabores salvadoreños en una jornada para toda la familia.",
+    base: 10,
+  },
+  {
+    id: "indie",
+    title: "Indie al atardecer",
+    category: "Música",
+    date: "2027-01-09T16:00",
+    venue: "Parque Cuscatlán",
+    city: "San Salvador",
+    status: "Disponible",
+    color: "#a73278",
+    description:
+      "Guitarras, nuevas voces y una tarde al aire libre. Conoce la escena independiente en una experiencia cercana.",
+    base: 18,
+  },
+  {
+    id: "run",
+    title: "Corre por el mañana",
+    category: "Deportes",
+    date: "2027-01-17T06:00",
+    venue: "Bulevar del Hipódromo",
+    city: "San Salvador",
+    status: "Disponible",
+    color: "#17653e",
+    description:
+      "Una carrera recreativa para disfrutar el movimiento. Recorridos de 5 y 10 kilómetros para compartir en comunidad.",
+    base: 12,
+  },
+  {
+    id: "arte",
+    title: "Universo creativo",
+    category: "Arte",
+    date: "2027-01-23T10:00",
+    venue: "Museo MARTE",
+    city: "San Salvador",
+    status: "Agotado",
+    color: "#234ca1",
+    description:
+      "Una exposición de arte, diseño e instalaciones. Un espacio para descubrir nuevas perspectivas y conversar.",
+    base: 8,
+  },
+  {
+    id: "comedia",
+    title: "La risa nos reúne",
+    category: "Comedia",
+    date: "2027-02-06T19:30",
+    venue: "Teatro Luis Poma",
+    city: "San Salvador",
+    status: "Próximamente",
+    color: "#73379b",
+    description:
+      "Una velada de humor cotidiano y buenas historias con una selección de comedia local.",
+    base: 16,
+  },
+].map((e) => ({
+  ...e,
+  image: `./posters/${e.id}.svg`,
+  zones: [
+    {
+      id: "general",
+      name: "General",
+      price: e.base,
+      capacity: e.status === "Agotado" ? 0 : e.id === "teatro" ? 6 : 120,
+    },
+    {
+      id: "preferencial",
+      name: "Preferencial",
+      price: e.base + 15,
+      capacity: e.status === "Agotado" ? 0 : e.id === "teatro" ? 3 : 60,
+    },
+    {
+      id: "vip",
+      name: "VIP",
+      price: e.base + 35,
+      capacity: e.status === "Agotado" ? 0 : e.id === "teatro" ? 2 : 25,
+    },
+  ],
+}));
+export const demoUsers = [
+  {
+    id: "cliente",
+    name: "Cliente Demo",
+    email: "cliente@example.com",
+    role: "Cliente",
+  },
+  {
+    id: "admin",
+    name: "Admin Demo",
+    email: "admin@example.com",
+    role: "Administrador",
+  },
+  {
+    id: "organizador",
+    name: "Organizador Demo",
+    email: "organizador@example.com",
+    role: "Organizador",
+  },
+];
+export const sampleSales = [
+  { event: "Neon Nights", tickets: 84, total: 2940 },
+  { event: "Jazz bajo las estrellas", tickets: 52, total: 1560 },
+  { event: "Entre líneas", tickets: 38, total: 760 },
+  { event: "Indie al atardecer", tickets: 67, total: 1876 },
+];
