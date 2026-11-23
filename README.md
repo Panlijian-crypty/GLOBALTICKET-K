@@ -41,7 +41,7 @@ npm run preview
 - Carrito persistente y compra en cuatro pasos.
 - Pago simulado con aprobación, rechazo y reintento.
 - Boletos con QR y cancelación de órdenes.
-- Registro, recuperación de contraseña simulada, perfil y roles de demostración.
+- Inicio de sesión, registro, recuperación de contraseña simulada, perfil y roles de demostración.
 - Panel con dashboard, eventos, inventario, precios y usuarios.
 - Reportes estáticos, tema claro/oscuro y estados de carga, error y vacío.
 

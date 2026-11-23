@@ -16,9 +16,9 @@
 
 Catalog recibe eventos y llama a `onOpen`. Detail selecciona una zona y cantidad y llama a `onAdd`. App valida la disponibilidad y actualiza cart. Cart y OrderSummary calculan el total. Checkout solicita nombre/correo, valida y simula rechazo o aprobación. App registra una sola orden, vacía el carrito y crea la sesión de invitado si hace falta. Tickets recibe las órdenes de la sesión y genera un QR por admisión. Cancelar marca la orden como Cancelada; la disponibilidad derivada se libera.
 
-## Flujo de autenticación e integración
+## Flujo de autenticación
 
-Account contiene pestañas y perfil. RegistrationForm recorta y valida nombre, correo, longitud y confirmación de la contraseña. RecoveryForm simula la recuperación sin correos. El componente LoginForm es la contribución reservada a Ariana y se carga opcionalmente mediante `import.meta.glob`. Mientras no exista, la aplicación muestra registro, recuperación y roles de prueba. Al agregar el archivo, Account habilita el login sin modificar el registro.
+Account contiene las pestañas Iniciar sesión, Crear cuenta y Recuperar contraseña, además del perfil. LoginForm normaliza el correo y valida la contraseña ficticia antes de comunicar el acceso simulado. RegistrationForm recorta y valida nombre, correo, longitud y confirmación de la contraseña. RecoveryForm simula la recuperación sin correos. Los tres componentes están organizados en `src/components/auth`; Account incorpora LoginForm mediante `import.meta.glob`.
 
 Los formularios reciben `onSuccess`, no acceden directamente al estado global. Account transforma el resultado en una sesión y llama a setSession. Los roles rápidos permiten probar las vistas; no son controles de seguridad reales. Ninguna contraseña se guarda.
 
