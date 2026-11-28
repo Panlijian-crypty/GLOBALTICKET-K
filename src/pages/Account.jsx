@@ -13,8 +13,8 @@ const LoginForm = loginModules["../components/auth/LoginForm.jsx"];
 export default function Account({ session, setSession, go }) {
   const [mode, setMode] = useState(LoginForm ? "Iniciar sesión" : "Crear cuenta");
   const [message, setMessage] = useState("");
-  function startSession({ email, name }) {
-    setSession({ id: email, email, name, role: "Cliente" });
+  function startSession({ email, name, id = email, role = "Cliente" }) {
+    setSession({ id, email, name, role });
     setMessage("Sesión simulada iniciada.");
   }
   return (
