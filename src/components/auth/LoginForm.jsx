@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Field, Notice } from "../UI";
+import { demoUsers } from "../../data/events";
 import { emailValid } from "../../utils/format";
 import { useDelayedAction } from "../../hooks/useDelayedAction";
 
@@ -24,8 +25,28 @@ export default function LoginForm({
         "La contraseña de prueba debe tener al menos 8 caracteres.",
       );
     run(() => {
+      if (password !== "Global2026!") {
+        setError("Usa un correo registrado y la contraseña de demostración Global2026!.");
+        return;
+      }
+      let user = demoUsers.find((candidate) => candidate.email === normalizedEmail);
+      if (!user) {
+        try {
+          const saved = JSON.parse(localStorage.getItem(`gt-registro:${normalizedEmail}`));
+          if (saved?.email === normalizedEmail && typeof saved.name === "string" && saved.name.trim()) {
+            user = { id: normalizedEmail, email: normalizedEmail, name: saved.name, role: "Cliente" };
+          }
+        } catch {
+          setError("No se pudo leer el registro guardado en este navegador.");
+          return;
+        }
+      }
+      if (!user) {
+        setError("Usa un correo registrado y la contraseña de demostración Global2026!.");
+        return;
+      }
       setPassword("");
-      onSuccess({ email: normalizedEmail, name: "Cliente Demo" });
+      onSuccess(user);
     });
   }
 
@@ -38,8 +59,9 @@ export default function LoginForm({
       onSubmit={submit}
     >
       <Notice>
-        Acceso simulado: usa un correo y una contraseña ficticios. No se
-        comprueban contra un servidor y la contraseña no se guarda.
+        Para practicar, usa cliente@example.com, organizador@example.com,
+        admin@example.com o un correo registrado en este navegador. La contraseña
+        de demostración es Global2026!.
       </Notice>
       {error && <Notice type="error">{error}</Notice>}
       <Field
